@@ -1,10 +1,8 @@
-#include "pch.h"
-
 #include <vcpkg/base/system.print.h>
 #include <vcpkg/base/system.process.h>
 #include <vcpkg/base/util.h>
 
-#include <vcpkg/commands.h>
+#include <vcpkg/commands.porthistory.h>
 #include <vcpkg/help.h>
 
 namespace vcpkg::Commands::PortHistory
@@ -93,5 +91,10 @@ namespace vcpkg::Commands::PortHistory
             System::printf("%20.20s    %s    %s\n", version.version, version.date, version.commit_id);
         }
         Checks::exit_success(VCPKG_LINE_INFO);
+    }
+
+    void PortHistoryCommand::perform_and_exit(const VcpkgCmdArguments& args, const VcpkgPaths& paths) const
+    {
+        PortHistory::perform_and_exit(args, paths);
     }
 }
