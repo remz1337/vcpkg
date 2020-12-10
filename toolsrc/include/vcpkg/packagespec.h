@@ -6,6 +6,7 @@
 
 #include <vcpkg/platform-expression.h>
 #include <vcpkg/triplet.h>
+#include <vcpkg/versions.h>
 
 namespace vcpkg::Parse
 {
@@ -22,8 +23,6 @@ namespace vcpkg
     ///
     struct PackageSpec
     {
-        constexpr static StringLiteral MANIFEST_NAME = "default";
-
         PackageSpec() = default;
         PackageSpec(std::string name, Triplet triplet) : m_name(std::move(name)), m_triplet(triplet) { }
 
@@ -49,6 +48,9 @@ namespace vcpkg
         std::string m_name;
         Triplet m_triplet;
     };
+
+    bool operator==(const PackageSpec& left, const PackageSpec& right);
+    inline bool operator!=(const PackageSpec& left, const PackageSpec& right) { return !(left == right); }
 
     ///
     /// <summary>
@@ -111,6 +113,12 @@ namespace vcpkg
                                                   const std::vector<std::string>& all_features) const;
 
         static ExpectedS<FullPackageSpec> from_string(const std::string& spec_as_string, Triplet default_triplet);
+
+        bool operator==(const FullPackageSpec& o) const
+        {
+            return package_spec == o.package_spec && features == o.features;
+        }
+        bool operator!=(const FullPackageSpec& o) const { return !(*this == o); }
     };
 
     ///
@@ -126,16 +134,43 @@ namespace vcpkg
         static ExpectedS<Features> from_string(const std::string& input);
     };
 
+    struct DependencyConstraint
+    {
+        Versions::Constraint::Type type = Versions::Constraint::Type::None;
+        std::string value;
+        int port_version = 0;
+
+        friend bool operator==(const DependencyConstraint& lhs, const DependencyConstraint& rhs);
+        friend bool operator!=(const DependencyConstraint& lhs, const DependencyConstraint& rhs)
+        {
+            return !(lhs == rhs);
+        }
+    };
+
     struct Dependency
     {
         std::string name;
         std::vector<std::string> features;
         PlatformExpression::Expr platform;
+        DependencyConstraint constraint;
 
         Json::Object extra_info;
 
         friend bool operator==(const Dependency& lhs, const Dependency& rhs);
         friend bool operator!=(const Dependency& lhs, const Dependency& rhs) { return !(lhs == rhs); }
+    };
+
+    struct DependencyOverride
+    {
+        std::string name;
+        std::string version;
+        int port_version = 0;
+        Versions::Scheme version_scheme = Versions::Scheme::String;
+
+        Json::Object extra_info;
+
+        friend bool operator==(const DependencyOverride& lhs, const DependencyOverride& rhs);
+        friend bool operator!=(const DependencyOverride& lhs, const DependencyOverride& rhs) { return !(lhs == rhs); }
     };
 
     struct ParsedQualifiedSpecifier
@@ -150,9 +185,6 @@ namespace vcpkg
     Optional<std::string> parse_package_name(Parse::ParserBase& parser);
     ExpectedS<ParsedQualifiedSpecifier> parse_qualified_specifier(StringView input);
     Optional<ParsedQualifiedSpecifier> parse_qualified_specifier(Parse::ParserBase& parser);
-
-    bool operator==(const PackageSpec& left, const PackageSpec& right);
-    inline bool operator!=(const PackageSpec& left, const PackageSpec& right) { return !(left == right); }
 }
 
 namespace std

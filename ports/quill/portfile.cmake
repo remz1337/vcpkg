@@ -1,10 +1,12 @@
 vcpkg_fail_port_install(ON_ARCH "arm" ON_TARGET "uwp")
 
+vcpkg_check_linkage(ONLY_STATIC_LIBRARY)
+
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO odygrd/quill
-    REF f1d244f521a117beabebbe536f8507f8b2aa2244 #v1.3.3
-    SHA512 1164f6089f92822f35570832873aef9d619d3da311d1f57f36fd83fd2f659255a1ea44db79948a1591d48c4ec45a7b7158a5745f37a3c940e7bc7b97d52dd85e
+    REF a893abd49188c5567340ae38fd14ecbac02286f7 # v1.6.0
+    SHA512 35b20c12b441e96af17cc373004c040dc8b8b43263d12924d60ea8068ccb4e2eaa4cd8e5a4099cc5d46f6f8f1651252d1f041287c76579dca87b6a1c6a729612
     HEAD_REF master
 )
 
@@ -16,7 +18,7 @@ vcpkg_configure_cmake(
     SOURCE_PATH ${SOURCE_PATH}
     PREFER_NINJA
     OPTIONS
-	  -DQUILL_FMT_EXTERNAL=ON
+        -DQUILL_FMT_EXTERNAL=ON
 )
 
 vcpkg_install_cmake()
@@ -24,5 +26,5 @@ vcpkg_install_cmake()
 vcpkg_fixup_cmake_targets(CONFIG_PATH lib/cmake/quill)
 
 file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/debug/include)
-					
+
 file(INSTALL ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/${PORT} RENAME copyright)
