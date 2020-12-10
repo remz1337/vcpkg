@@ -1,5 +1,12 @@
 Source: openssl-unix
+<<<<<<< HEAD
 Version: 1.1.1g
 Port-Version: 4
 Description: OpenSSL is an open source project that provides a robust, commercial-grade, and full-featured toolkit for the Transport Layer Security (TLS) and Secure Sockets Layer (SSL) protocols. It is also a general-purpose cryptography library.
+=======
+Version: 1.1.1h
+Port-Version: 1
+Description: Deprecated OpenSSL port
+>>>>>>> c30903782c88967652178486a5f3e490fb2e8143
 Supports: !(windows|uwp)
+Build-Depends: openssl

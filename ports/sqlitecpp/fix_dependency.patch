@@ -1,11 +1,23 @@
 diff --git a/cmake/SQLiteCppConfig.cmake.in b/cmake/SQLiteCppConfig.cmake.in
+<<<<<<< HEAD
 index 82c32db..a485ad8 100644
+=======
+index 568922f..01196db 100644
+>>>>>>> c30903782c88967652178486a5f3e490fb2e8143
 --- a/cmake/SQLiteCppConfig.cmake.in
 +++ b/cmake/SQLiteCppConfig.cmake.in
 @@ -1,5 +1,5 @@
  include(CMakeFindDependencyMacro)
+<<<<<<< HEAD
 -find_dependency(SQLite3)
 +find_dependency(unofficial-sqlite3)
  
  @PACKAGE_INIT@
  
+=======
+-find_dependency(SQLite3 REQUIRED)
++find_dependency(unofficial-sqlite3 REQUIRED)
+ if(@UNIX@)
+     set(THREADS_PREFER_PTHREAD_FLAG @THREADS_PREFER_PTHREAD_FLAG@)
+     find_dependency(Threads REQUIRED)
+>>>>>>> c30903782c88967652178486a5f3e490fb2e8143

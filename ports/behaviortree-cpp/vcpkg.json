@@ -1,7 +1,11 @@
 {
   "name": "behaviortree-cpp",
   "version-string": "3.5.1",
+<<<<<<< HEAD
   "port-version": 1,
+=======
+  "port-version": 2,
+>>>>>>> c30903782c88967652178486a5f3e490fb2e8143
   "description": "Behavior Trees Library in C++.",
   "homepage": "https://www.behaviortree.dev",
   "supports": "!uwp & !osx",

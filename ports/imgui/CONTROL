@@ -1,6 +1,11 @@
 Source: imgui
+<<<<<<< HEAD
 Version: 1.78
 Port-Version: 2
+=======
+Version: 1.79
+Port-Version: 1
+>>>>>>> c30903782c88967652178486a5f3e490fb2e8143
 Homepage: https://github.com/ocornut/imgui
 Description: Bloat-free Immediate Mode Graphical User interface for C++ with minimal dependencies.
 
@@ -73,3 +78,9 @@ Build-Depends: freetype
 
 Feature: libigl-imgui
 Description: Install the libigl-imgui headers
+<<<<<<< HEAD
+=======
+
+Feature: wchar32
+Description: Use WCHAR32 instead of WCHAR16
+>>>>>>> c30903782c88967652178486a5f3e490fb2e8143

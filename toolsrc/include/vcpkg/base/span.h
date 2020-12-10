@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vcpkg/base/fwd/span.h>
+
 #include <array>
 #include <cstddef>
 #include <initializer_list>
@@ -30,11 +32,14 @@ namespace vcpkg
         {
         }
 
+<<<<<<< HEAD
         template<size_t N, class = std::enable_if_t<std::is_const<T>::value>>
         constexpr Span(std::remove_const_t<T> (&arr)[N]) noexcept : m_ptr(arr), m_count(N)
         {
         }
 
+=======
+>>>>>>> c30903782c88967652178486a5f3e490fb2e8143
         template<class Range,
                  class = decltype(std::declval<Range>().data()),
                  class = std::enable_if_t<!std::is_same<std::decay_t<Range>, Span>::value>>
